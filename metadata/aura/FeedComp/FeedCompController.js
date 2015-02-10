@@ -30,15 +30,22 @@
 	onChangeType : function(component, event, helper) {
         var typeSelect = component.find("typeSelect");
         var type = typeSelect.get("v.value");
-        component.set("v.type", type);
-        
+        var compDef = "markup://forceChatter:feed";
+        var attributes = {};
+        if (type !== 'recordview') {
+            component.set("v.type", type);
+            attributes.values = { type: type }
+        } else {
+            compDef = "markup://force:recordview";
+            attributes.values = { type: "FULL", recordId: "003B0000001VXqU"};
+        }
 		var feedContainer = component.find("feedContainer");
         var el = feedContainer.getElement();
         if ($A.util.hasClass(el, "slide")) {
             $A.util.removeClass(el, "slide");
             $A.util.addClass(el, "slideout");
         }
-        $A.run(function() {
+        //$A.run(function() {
             // Dynamically create the feed with the specified type
             $A.componentService.newComponentAsync(
                 this,
@@ -48,14 +55,10 @@
                     $A.util.addClass(feedContainer, "slide");
                 },
                 {
-                    componentDef : "markup://forceChatter:feed",
-                    attributes : {
-                        values : {
-                            type: type
-                        }
-                    }
+                    componentDef : compDef,
+                    attributes : attributes
                 }
             );
-        });
+        //});
     }
 })

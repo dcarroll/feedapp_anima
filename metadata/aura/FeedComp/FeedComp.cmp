@@ -2,7 +2,7 @@
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:attribute name="type" type="String" default="News" description="The type of feed" access="GLOBAL"/>
     <aura:attribute name="types" type="String[]"
-                    default="Bookmarks,Company,Files,Groups,Home,News,People"
+                    default="recordview, Bookmarks,Company,Files,Groups,Home,News,People"
                     description="A list of feed types"/>
 
   <div class="container">
