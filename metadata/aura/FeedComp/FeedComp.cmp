@@ -1,0 +1,16 @@
+<aura:component implements="force:appHostable">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="type" type="String" default="News" description="The type of feed" access="GLOBAL"/>
+    <aura:attribute name="types" type="String[]"
+                    default="Bookmarks,Company,Files,Groups,Home,News,People"
+                    description="A list of feed types"/>
+
+  <div class="container">
+   <h1>My Feeds</h1>
+
+   <ui:inputSelect aura:id="typeSelect" labelClass="thelabel" change="{!c.onChangeType}" label="Type"/>
+    <div aura:id="feedContainer" class="feed-container">
+        <forceChatter:feed />
+    </div>	
+  </div>
+</aura:component>
