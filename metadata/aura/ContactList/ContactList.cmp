@@ -1,0 +1,21 @@
+<aura:component model="dip.ContactListController" implements="force:recordTab">
+    <aura:attribute name="contacts" type="Contact[]" />
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+
+    <div>
+        <ul>
+            <aura:iteration items="{!m.contacts}" var="c">
+                <li>
+                    <div class="theheading">
+                        <img src="{!c.Profile_Image__c}" />
+                        <h3>{!c.Name}</h3>
+                        <h2>{!c.Title}</h2>
+                    </div>
+                    <p>{!c.Phone}</p>
+                    <p>{!c.Email}</p>
+                </li>
+            </aura:iteration>
+        </ul>	
+    </div>
+
+</aura:component>

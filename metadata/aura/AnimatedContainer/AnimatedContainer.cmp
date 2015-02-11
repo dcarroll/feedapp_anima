@@ -12,7 +12,7 @@
                     description="A list of feed types"/>
 
   <div class="container">
-   <h1>Animated Container</h1>
+   <h3>Animated Container</h3>
 
    <ui:inputSelect aura:id="typeSelect" labelClass="thelabel" change="{!c.onChangeType}" label="Choose Component"/>
     <div aura:id="feedContainer" class="feed-container animated">
