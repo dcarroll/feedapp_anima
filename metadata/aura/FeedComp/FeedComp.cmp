@@ -1,15 +1,20 @@
 <aura:component implements="force:appHostable">
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="aura:locationChange" action="{!c.locationChange}" />
+
     <aura:attribute name="type" type="String" default="News" description="The type of feed" access="GLOBAL"/>
+    <aura:attribute name="animation-in" type="String" default="bounceInUp" />
+    <aura:attribute name="animation-out" type="String" default="bounceOutUp" />
+
     <aura:attribute name="types" type="String[]"
-                    default="recordview, Bookmarks,Company,Files,Groups,Home,News,People"
+                    default="Contact List,Record View,Bookmarks,Company,Files,Groups,Home,News,People"
                     description="A list of feed types"/>
 
   <div class="container">
    <h1>My Feeds</h1>
 
    <ui:inputSelect aura:id="typeSelect" labelClass="thelabel" change="{!c.onChangeType}" label="Type"/>
-    <div aura:id="feedContainer" class="feed-container">
+    <div aura:id="feedContainer" class="feed-container animated">
         <forceChatter:feed />
     </div>	
   </div>

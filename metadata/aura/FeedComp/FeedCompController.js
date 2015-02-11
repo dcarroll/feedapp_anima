@@ -1,4 +1,12 @@
 ({
+    locationChange : function(component, event, helper) {
+        var parts = event.getParam("token").split("\/");
+        if (parts.length > 2 && parts[1] == "sObject") {
+            console.log("got one!");
+
+        }
+    },
+
     // Handle component initialization 
     doInit : function(component, event, helper) {
         var type = component.get("v.type");
@@ -12,38 +20,28 @@
         component.find("typeSelect").set("v.options", typeOpts);
     },
     
-    doneRendering: function(component, event, helper) {
-        console.log("Done rendering from FeedComp");
-        //$A.util.removeClass(component.getElement(), "slide"); 
-        /*window.setTimeout(function () {
-            $A.run(function() {
-                if ($A.util.hasClass(component.getElement(), "slide")) {
-                    console.log("Removing class slide from doneRendering");
-                    $A.util.removeClass(component.getElement(), "slide");
-                    console.log("Removing class slideout from doneRendering");
-                    $A.util.removeClass(component.getElement(), "slideout");                    
-                }
-            });
-        }, 100);*/
-    },
-
 	onChangeType : function(component, event, helper) {
         var typeSelect = component.find("typeSelect");
         var type = typeSelect.get("v.value");
         var compDef = "markup://forceChatter:feed";
         var attributes = {};
-        if (type !== 'recordview') {
-            component.set("v.type", type);
-            attributes.values = { type: type }
-        } else {
+        var animation_in = component.get("v.animation-in");
+        var animation_out = component.get("v.animation-out");
+        if (type === 'Record View') {
             compDef = "markup://force:recordview";
             attributes.values = { type: "FULL", recordId: "003B0000001VXqU"};
+        } else if (type === 'Contact List') {
+            compDef = "markup://dip:ContactList";
+            //attributes.values = { type: "FULL", recordId: "003B0000001VXqU"};
+        } else {
+            component.set("v.type", type);
+            attributes.values = { type: type }
         }
 		var feedContainer = component.find("feedContainer");
         var el = feedContainer.getElement();
-        if ($A.util.hasClass(el, "slide")) {
-            $A.util.removeClass(el, "slide");
-            $A.util.addClass(el, "slideout");
+        if ($A.util.hasClass(el, animation_in)) {
+            $A.util.removeClass(el, animation_in);
+            $A.util.addClass(el, animation_out);
         }
         //$A.run(function() {
             // Dynamically create the feed with the specified type
@@ -52,7 +50,7 @@
                 function(newcomponent){
                     var feedContainer = component.find("feedContainer");
                     feedContainer.set("v.body", newcomponent);
-                    $A.util.addClass(feedContainer, "slide");
+                    $A.util.addClass(feedContainer, animation_in);
                 },
                 {
                     componentDef : compDef,

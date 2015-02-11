@@ -1,5 +1,6 @@
 <aura:component implements="force:appHostable">
 	<link href='/resource/bootstrap/bootstrap/css/bootstrap.css' rel="stylesheet"/>
+	<link href='/resource/animate' rel="stylesheet"/>
 
 	<dip:FeedComp />
 </aura:component>
