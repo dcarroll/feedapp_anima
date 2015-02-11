@@ -1,12 +1,4 @@
 ({
-    locationChange : function(component, event, helper) {
-        var parts = event.getParam("token").split("\/");
-        if (parts.length > 2 && parts[1] == "sObject") {
-            console.log("got one!");
-
-        }
-    },
-
     // Handle component initialization 
     doInit : function(component, event, helper) {
         var type = component.get("v.type");
@@ -32,7 +24,6 @@
             attributes.values = { type: "FULL", recordId: "003B0000001VXqU"};
         } else if (type === 'Contact List') {
             compDef = "markup://dip:ContactList";
-            //attributes.values = { type: "FULL", recordId: "003B0000001VXqU"};
         } else {
             component.set("v.type", type);
             attributes.values = { type: type }
@@ -42,21 +33,19 @@
         if ($A.util.hasClass(el, animation_in)) {
             $A.util.removeClass(el, animation_in);
             $A.util.addClass(el, animation_out);
-        }
-        //$A.run(function() {
-            // Dynamically create the feed with the specified type
-            $A.componentService.newComponentAsync(
-                this,
-                function(newcomponent){
-                    var feedContainer = component.find("feedContainer");
-                    feedContainer.set("v.body", newcomponent);
-                    $A.util.addClass(feedContainer, animation_in);
-                },
-                {
-                    componentDef : compDef,
-                    attributes : attributes
-                }
-            );
-        //});
+        } 
+        
+        $A.componentService.newComponentAsync(
+            this,
+            function(newcomponent){
+                var feedContainer = component.find("feedContainer");
+                feedContainer.set("v.body", newcomponent);
+                $A.util.addClass(feedContainer, animation_in);
+            },
+            {
+                componentDef : compDef,
+                attributes : attributes
+            }
+        );
     }
 })

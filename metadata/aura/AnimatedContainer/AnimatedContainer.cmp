@@ -1,6 +1,7 @@
 <aura:component implements="force:appHostable">
+  <link href='/resource/bootstrap/bootstrap/css/bootstrap.css' rel="stylesheet"/>
+  <link href='/resource/animate' rel="stylesheet"/>
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    <aura:handler event="aura:locationChange" action="{!c.locationChange}" />
 
     <aura:attribute name="type" type="String" default="News" description="The type of feed" access="GLOBAL"/>
     <aura:attribute name="animation-in" type="String" default="bounceInUp" />
@@ -11,11 +12,11 @@
                     description="A list of feed types"/>
 
   <div class="container">
-   <h1>My Feeds</h1>
+   <h1>Animated Container</h1>
 
-   <ui:inputSelect aura:id="typeSelect" labelClass="thelabel" change="{!c.onChangeType}" label="Type"/>
+   <ui:inputSelect aura:id="typeSelect" labelClass="thelabel" change="{!c.onChangeType}" label="Choose Component"/>
     <div aura:id="feedContainer" class="feed-container animated">
-        <forceChatter:feed />
+        <forceChatter:feed type="News" />
     </div>	
   </div>
 </aura:component>
